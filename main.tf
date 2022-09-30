@@ -1,5 +1,5 @@
 provider "aws" {
-  region = var.region
+  region = "us-east-2"
 }
 
 data "aws_availability_zones" "available" {}
@@ -33,7 +33,7 @@ resource "aws_security_group" "rds" {
     from_port   = 5432
     to_port     = 5432
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["192.80.0.0/16"]
   }
 
   egress {
@@ -50,7 +50,7 @@ resource "aws_security_group" "rds" {
 
 resource "aws_db_parameter_group" "education" {
   name   = "education"
-  family = "postgres13"
+  family = "postgres14"
 
   parameter {
     name  = "log_connections"
@@ -58,13 +58,19 @@ resource "aws_db_parameter_group" "education" {
   }
 }
 
+provider "random" {}
+
+resource "random_pet" "random" {
+  length = 1
+}
+
 resource "aws_db_instance" "education" {
-  identifier             = "education"
+  identifier             = "${var.db_name}-${random_pet.random.id}"
   instance_class         = "db.t3.micro"
   allocated_storage      = 5
   engine                 = "postgres"
-  engine_version         = "13.1"
-  username               = "edu"
+  engine_version         = "14.1"
+  username               = var.db_username
   password               = var.db_password
   db_subnet_group_name   = aws_db_subnet_group.education.name
   vpc_security_group_ids = [aws_security_group.rds.id]
