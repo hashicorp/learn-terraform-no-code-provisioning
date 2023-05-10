@@ -17,7 +17,7 @@ module "vpc" {
 }
 
 resource "aws_db_subnet_group" "education" {
-  name       = "education"
+  name       = "kbtg-test"
   subnet_ids = module.vpc.public_subnets
 
   tags = {
@@ -49,7 +49,7 @@ resource "aws_security_group" "rds" {
 }
 
 resource "aws_db_parameter_group" "education" {
-  name   = "education"
+  name   = "kbtg-test"
   family = "postgres14"
 
   parameter {
