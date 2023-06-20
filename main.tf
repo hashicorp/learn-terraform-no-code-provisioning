@@ -17,7 +17,7 @@ module "vpc" {
 }
 
 resource "aws_db_subnet_group" "education" {
-  name       = "education"
+  name       = "basededonnée"
   subnet_ids = module.vpc.public_subnets
 
   tags = {
