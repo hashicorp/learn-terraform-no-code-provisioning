@@ -13,5 +13,4 @@ variable "db_password" {
 
 variable "multi_az" {
   description = "RDS Multi AZ"
-  default = false
 }
