@@ -10,3 +10,8 @@ variable "db_password" {
   description = "RDS root user password"
   sensitive   = true
 }
+
+variable "multi_az" {
+  description = "RDS Multi AZ"
+  default = false
+}
