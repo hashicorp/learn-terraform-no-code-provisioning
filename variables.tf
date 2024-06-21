@@ -13,3 +13,7 @@ variable "db_password" {
   description = "RDS root user password"
   sensitive   = true
 }
+
+variable "random_name" {
+  description = "This is just a test for the input of nocode"
+}
